@@ -220,7 +220,12 @@ hr {
 
 /* BUTTON   */
 .bi {
-    color: cyan !important;
+    color: #b09427;
+    text-align: center;
+}
+
+.bi2 {
+    color: red;
     text-align: center;
 }
 

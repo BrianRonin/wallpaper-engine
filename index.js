@@ -302,9 +302,6 @@
   };
 
   ////////////////// MEU CODIGO ////////////////////////
-  let diaDeTreino = localStorage.getItem("diaDeTreino");
-  diaDeTreino = JSON.parse(diaDeTreino);
-  diaDeTreino = new Date(diaDeTreino);
 
   function addDays(date, days) {
     let result = date.setDate(date.getDate() + days);
@@ -313,6 +310,9 @@
 
   let adm = false; ///////30, 31, 32////////////
   const eHoje = (dia) => {
+    let diaDeTreino = localStorage.getItem("diaDeTreino");
+    diaDeTreino = JSON.parse(diaDeTreino);
+    diaDeTreino = new Date(diaDeTreino);
     console.log(dia);
     let today = new Date();
     if (dia === 0) {
@@ -336,13 +336,24 @@
   };
 
   ///////////// verificação /////////////
+  const btn3 = document.getElementById("passou-do-dia");
   const btn = document.getElementById("dia-de-treino-btn");
-  function setarData() {
-    btn.style.display = "block";
+  function setarData(passou) {
+    if (passou) {
+      btn3.style.display = "block";
+    } else {
+      btn.style.display = "block";
+    }
     btn.addEventListener("click", function () {
+      setar();
+    });
+    btn3.addEventListener("click", function () {
+      setar();
+    });
+    function setar() {
       diaDeTreino = new Date();
       console.log(diaDeTreino);
-      diaDeTreino = diaDeTreino.setDate(diaDeTreino.getDate() + 1);
+      diaDeTreino = diaDeTreino.setDate(diaDeTreino.getDate() + 3);
       diaDeTreino = new Date(diaDeTreino);
       console.log(diaDeTreino);
       diaDeTreino = JSON.stringify(diaDeTreino);
@@ -350,7 +361,7 @@
       btn.style.display = "none";
       localStorage.setItem("diaDeTreino", diaDeTreino);
       verificar();
-    });
+    }
   }
   setarData();
   const btn0 = document.getElementById("dia-0-btn");
@@ -361,6 +372,7 @@
       btn0.style.display = "none";
       btn1.style.display = "none";
       btn2.style.display = "none";
+      btn3.style.display = "none";
       setarData();
       console.log("sim");
     } else if (eHoje(2)) {
@@ -368,12 +380,14 @@
       btn0.style.display = "none";
       btn1.style.display = "none";
       btn2.style.display = "block";
+      btn3.style.display = "none";
       btn.style.display = "none";
     } else if (eHoje(1)) {
       console.log("hoje é o dia 1");
       btn0.style.display = "none";
       btn1.style.display = "block";
       btn2.style.display = "none";
+      btn3.style.display = "none";
       btn.style.display = "none";
 
       // btn.style.display = "none";
@@ -383,9 +397,16 @@
       btn0.style.display = "block";
       btn1.style.display = "none";
       btn2.style.display = "none";
+      btn3.style.display = "none";
       btn.style.display = "none";
       // btn.style.display = "none";
       // console.log("nao");
+    } else {
+      btn0.style.display = "none";
+      btn1.style.display = "none";
+      btn2.style.display = "none";
+      btn.style.display = "none";
+      setarData(true);
     }
   }
   verificar();
